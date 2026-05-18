@@ -65,8 +65,8 @@
     .modal-content { width: 90%; max-width: 500px; max-height: 90vh; overflow-y:auto; background:white; padding:20px; border-radius:12px;}
     .btn-close { background: none; border: none; font-size: 20px; cursor: pointer; }
 
-    /* PDF Style */
-    .pdf-container { width: 794px; background: white; color: black; padding: 20px; box-sizing: border-box; font-size: 13px; line-height: 1.4; box-shadow: 0 0 10px rgba(0,0,0,0.5);}
+    /* แก้ไข PDF Style เพิ่ม Padding ด้านล่างป้องกันตกขอบ */
+    .pdf-container { width: 794px; background: white; color: black; padding: 20px 30px 40px 30px; box-sizing: border-box; font-size: 13px; line-height: 1.4; box-shadow: 0 0 10px rgba(0,0,0,0.5);}
     .pdf-title { text-align:center; font-weight:bold; font-size:16px; margin-bottom:5px; }
     .pdf-bold { font-weight: bold; margin-top: 5px; font-size: 13px;}
     .pdf-line { display: flex; align-items: flex-end; margin-bottom: 2px; white-space: nowrap; width: 100%;}
@@ -75,7 +75,6 @@
     .pdf-table th, .pdf-table td { border: 1px solid #000; padding: 5px; text-align: left; }
     .cb { font-size: 14px; margin-right: 2px;}
 
-    /* การแสดงผลเมนู Bottom Navigation บนมือถือ */
     @media (min-width: 768px) {
       .main-nav { width: 250px; position: fixed; height: 100vh; background: var(--nav-bg); color: white; display: flex; flex-direction: column; }
       .logo-area { padding: 25px 20px; font-size: 18px; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.1); }
@@ -90,8 +89,6 @@
       .desktop-only { display: none !important; }
       .logo-area { display: none; }
       .mobile-header { background: var(--primary); color: white; padding: 18px; text-align: center; font-weight: 600; font-size: 18px; position: sticky; top: 0; z-index: 999; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-      
-      /* Bottom Navigation Bar */
       .main-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #ffffff; display: flex; flex-direction: row; justify-content: space-around; padding: 8px 0 12px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.08); z-index: 1000; }
       .nav-links { display: flex; justify-content: space-around; width: 100%; }
       .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; color: #80868b; width: 25%; transition: 0.2s; padding: 5px; }
@@ -99,7 +96,6 @@
       .nav-item .nav-text { display: block; font-size: 11px; font-weight: 500; }
       .nav-item.active { color: var(--primary); }
       .nav-item.active i { transform: scale(1.1); }
-      
       .content-area { padding: 15px; padding-bottom: 90px; background: #f0f4f9; }
       .card { border-radius: 16px; padding: 20px; border: none; }
       .form-grid { grid-template-columns: 1fr; gap: 12px; }
@@ -336,7 +332,8 @@
           </td>
         </tr>
       </table>
-      <div style="margin-top: 20px; text-align: right; padding-right: 30px;">
+      
+      <div style="margin-top: 20px; text-align: right; padding-right: 30px; padding-bottom: 20px;">
         <div>ลงชื่อพยาบาลที่ส่งต่อ ..............................................................</div>
         <div style="margin-top:5px; margin-right:20px;">( <span id="p_nurse" style="display:inline-block; width:150px; text-align:center;"></span> )</div>
         <div style="margin-top:5px; margin-right:20px;">ตำแหน่ง <span id="p_pos" style="display:inline-block; width:150px; text-align:center;"></span></div>
@@ -369,31 +366,52 @@
       if(pageId === 'page-home') updateChart();
     }
 
+    // 🚀 ส่วนที่ 1: แก้โหลดช้า (ใช้การโหลดแบบขนาน Parallel)
     window.onload = async () => {
       document.getElementById('loading-overlay').style.display = 'flex';
+      
       try {
-        await serverCall('initApp');
-        await loadSettings();
-        await loadApp();
-      } catch(e) { alert("การเชื่อมต่อฐานข้อมูลล้มเหลว ตรวจสอบ Web App URL"); }
+        // ให้คำสั่งเริ่มต้นรันอยู่เบื้องหลังโดยไม่ต้องรอ
+        serverCall('initApp').catch(e => console.log(e));
+        
+        // ยิงคำขอไปดึง Data และ Settings พร้อมกัน (ลดเวลาโหลดลงกว่าครึ่ง)
+        const [resSettings, resData] = await Promise.all([
+          serverCall('getSettings'),
+          serverCall('getAllData')
+        ]);
+        
+        // จัดการ Settings ที่ได้มา
+        if(resSettings) {
+          const ns = document.getElementById('f_nurse_name'); const ps = document.getElementById('f_nurse_pos');
+          ns.innerHTML = '<option value="">-- เลือก --</option>' + (resSettings.nurses || []).map(n => `<option value="${n}">${n}</option>`).join('');
+          ps.innerHTML = '<option value="">-- เลือก --</option>' + (resSettings.positions || []).map(p => `<option value="${p}">${p}</option>`).join('');
+          document.getElementById('set_nurses').value = (resSettings.nurses || []).join('\n'); 
+          document.getElementById('set_positions').value = (resSettings.positions || []).join('\n');
+        }
+        
+        // จัดการ Data ที่ได้มา
+        if(resData) {
+          allData = resData.data || []; 
+          filterData(); filterTracking(); updateChart();
+        }
+        
+      } catch(e) { 
+        alert("การเชื่อมต่อฐานข้อมูลล้มเหลว ตรวจสอบ Web App URL"); 
+      }
+      
       document.getElementById('loading-overlay').style.display = 'none';
 
       const devOther = document.getElementById('c_dev_other');
       if(devOther) devOther.addEventListener('change', e => { document.getElementById('f_dev_other_txt').style.display = e.target.checked ? 'block' : 'none'; });
     };
 
+    // ฟังก์ชันนี้เก็บไว้เพื่อให้โหลดข้อมูลซ้ำหลังจากมีการแก้ไขหรือลบ
     async function loadApp() {
       try {
         const res = await serverCall('getAllData');
         allData = res.data || []; 
         filterData(); filterTracking(); updateChart();
-      } catch(e) { alert("โหลดข้อมูลผิดพลาดครับ"); }
-    }
-
-    function toggleRightOther() {
-      const r = document.getElementById('f_right').value;
-      const txt = document.getElementById('f_right_other');
-      if(r === 'อื่นๆ') { txt.style.display = 'block'; txt.required = true; } else { txt.style.display = 'none'; txt.required = false; }
+      } catch(e) {}
     }
 
     async function loadSettings() {
@@ -404,6 +422,12 @@
         ps.innerHTML = '<option value="">-- เลือก --</option>' + res.positions.map(p => `<option value="${p}">${p}</option>`).join('');
         document.getElementById('set_nurses').value = res.nurses.join('\n'); document.getElementById('set_positions').value = res.positions.join('\n');
       } catch(e) {}
+    }
+
+    function toggleRightOther() {
+      const r = document.getElementById('f_right').value;
+      const txt = document.getElementById('f_right_other');
+      if(r === 'อื่นๆ') { txt.style.display = 'block'; txt.required = true; } else { txt.style.display = 'none'; txt.required = false; }
     }
 
     function openSettingsModal() { document.getElementById('settingsModal').classList.add('active'); }
@@ -569,9 +593,11 @@
           const link = document.createElement('a'); link.download = fileName + '.jpg'; link.href = imgData; link.click();
         }
 
+        // 🚀 ส่วนที่ 2: แก้ PDF ตกขอบ โดยเพิ่มระยะขอบด้านล่างเป็น 0.5
         if (type === 'pdf' || type === 'both') {
           const opt = { 
-            margin: 0.3, filename: fileName + '.pdf', 
+            margin: [0.3, 0.3, 0.5, 0.3], // [บน, ขวา, ล่าง, ซ้าย]
+            filename: fileName + '.pdf', 
             image: { type: 'jpeg', quality: 1 }, 
             html2canvas: { scale: 2, useCORS: true, logging: false }, 
             jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
@@ -703,7 +729,7 @@
       await new Promise(r => setTimeout(r, 500)); 
 
       try {
-        const opt = { margin: 0.5, filename: `ตารางรายงาน_${page}.pdf`, image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' } };
+        const opt = { margin: [0.3, 0.3, 0.5, 0.3], filename: `ตารางรายงาน_${page}.pdf`, image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' } };
         await html2pdf().set(opt).from(wrapper).save(); 
       } catch(e) { alert("ออกเอกสารล้มเหลว"); }
 
