@@ -2,9 +2,11 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
   <title>IPD3 HHC Cloud</title>
   
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%231a73e8' d='M318.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-120 120c-12.5 12.5-12.5 32.8 0 45.3l16 16c12.5 12.5 32.8 12.5 45.3 0l4-4V224c0 17.7 14.3 32 32 32h96c17.7 0 32-14.3 32-32V186.7l4 4c12.5 12.5 32.8 12.5 45.3 0l16-16c12.5-12.5 12.5-32.8 0-45.3l-120-120zM192 352c-17.7 0-32 14.3-32 32v16c0 17.7 14.3 32 32 32h128c17.7 0 32-14.3 32-32v-16c0-17.7-14.3-32-32-32H192zm-96 0c-17.7 0-32 14.3-32 32v16c0 17.7 14.3 32 32 32h32v-80H96zm288 0h-32v80h32c17.7 0 32-14.3 32-32v-16c0-17.7-14.3-32-32-32z'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%231a73e8' d='M160 48c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48v32h32c26.5 0 48 21.5 48 48v32c0 26.5-21.5 48-48 48h-32v32c0 26.5-21.5 48-48 48h-32c-26.5 0-48-21.5-48-48v-32h-32c-26.5 0-48-21.5-48-48v-32c0-26.5 21.5-48 48-48h32V48zM0 384c0-21.2 11.2-40.6 29.3-51.1l74-44.4c8.4-5 19.3-3.6 26.3 3.1l21.2 21.2c5 5 12 7.2 19 6.2l91.1-13c6.8-1 13.9 1.1 19 6.2l87.2 87.2c6.2 6.2 14.6 9.4 23.3 8.8l75.4-5c9-1.2 17.5 4.8 19.3 13.7l9.4 46.8c2.4 12-4.1 23.9-15.6 28l-85.1 30.4c-17.7 6.3-37 7.5-55.5 3.3L237 475.2c-15.8-3.6-30-11.8-41.2-23l-34.9-34.9c-8.8-8.8-21.7-12.3-34-9.3L15.3 434C6.2 436.5 0 428.1 0 418.5V384z'/%3E%3C/svg%3E">
   
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -77,6 +79,7 @@
     .pdf-table th, .pdf-table td { border: 1px solid #000; padding: 5px; text-align: left; }
     .cb { font-size: 14px; margin-right: 2px;}
 
+    /* Desktop View */
     @media (min-width: 768px) {
       .main-nav { width: 250px; position: fixed; height: 100vh; background: var(--nav-bg); color: white; display: flex; flex-direction: column; }
       .logo-area { padding: 25px 20px; font-size: 18px; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.1); }
@@ -86,33 +89,34 @@
       .content-area { margin-left: 250px; }
     }
 
-    /* 4. อัปเดต Mobile UI แบบสมัยใหม่ (Glassmorphism & Floating Bottom Nav) */
+    /* Mobile App View (Glassmorphism & Bottom Nav) */
     @media (max-width: 767px) {
       body { flex-direction: column; }
       .desktop-only { display: none !important; }
       .logo-area { display: none; }
       .mobile-header { background: var(--primary); color: white; padding: 18px; text-align: center; font-weight: 600; font-size: 18px; position: sticky; top: 0; z-index: 999; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
       
+      /* Bottom Navigation Bar */
       .main-nav { 
         position: fixed; 
         bottom: 15px; 
         left: 15px; 
         width: calc(100% - 30px); 
-        background: rgba(255, 255, 255, 0.85); 
-        backdrop-filter: blur(12px); 
-        -webkit-backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.9); 
+        backdrop-filter: blur(15px); 
+        -webkit-backdrop-filter: blur(15px);
         display: flex; 
         flex-direction: row; 
         justify-content: space-around; 
         padding: 10px 5px; 
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12); 
-        border: 1px solid rgba(255, 255, 255, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.5);
         border-radius: 20px;
         z-index: 1000; 
         box-sizing: border-box;
       }
-      .nav-links { display: flex; justify-content: space-around; width: 100%; }
-      .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; color: #80868b; width: 25%; transition: all 0.3s ease; padding: 6px 0; border-radius: 12px; }
+      .nav-links { display: flex; justify-content: space-around; width: 100%; align-items: center; }
+      .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; color: #80868b; width: 20%; transition: all 0.3s ease; padding: 6px 0; border-radius: 12px; }
       .nav-item i { font-size: 22px; margin-bottom: 4px; transition: 0.3s; }
       .nav-item .nav-text { display: block; font-size: 11px; font-weight: 500; }
       .nav-item.active { background: rgba(26, 115, 232, 0.1); color: var(--primary); transform: translateY(-3px); }
@@ -138,7 +142,7 @@
   <nav class="main-nav">
     <div class="logo-area"><i class="fa-solid fa-hand-holding-medical"></i><span style="margin-left:8px;">IPD3 HHC Cloud</span></div>
     <div class="nav-links">
-      <a href="#" class="nav-item active" onclick="switchPage('page-home', this)"><i class="fa-solid fa-chart-pie"></i><span class="nav-text">หน้าหลัก</span></a>
+      <a href="#" class="nav-item active" onclick="switchPage('page-home', this)"><i class="fa-solid fa-house"></i><span class="nav-text">หน้าหลัก</span></a>
       <a href="#" class="nav-item" onclick="switchPage('page-report', this)"><i class="fa-solid fa-file-lines"></i><span class="nav-text">รายงาน</span></a>
       <a href="#" class="nav-item" onclick="switchPage('page-tracking', this)"><i class="fa-solid fa-shoe-prints"></i><span class="nav-text">ติดตาม</span></a>
       <a href="#" class="nav-item" onclick="switchPage('page-entry', this)"><i class="fa-solid fa-clipboard-user"></i><span class="nav-text">บันทึกส่งต่อ</span></a>
