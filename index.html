@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>IPD3 HHC Cloud</title>
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%231a73e8' d='M318.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-120 120c-12.5 12.5-12.5 32.8 0 45.3l16 16c12.5 12.5 32.8 12.5 45.3 0l4-4V224c0 17.7 14.3 32 32 32h96c17.7 0 32-14.3 32-32V186.7l4 4c12.5 12.5 32.8 12.5 45.3 0l16-16c12.5-12.5 12.5-32.8 0-45.3l-120-120zM192 352c-17.7 0-32 14.3-32 32v16c0 17.7 14.3 32 32 32h128c17.7 0 32-14.3 32-32v-16c0-17.7-14.3-32-32-32H192zm-96 0c-17.7 0-32 14.3-32 32v16c0 17.7 14.3 32 32 32h32v-80H96zm288 0h-32v80h32c17.7 0 32-14.3 32-32v-16c0-17.7-14.3-32-32-32z'/%3E%3C/svg%3E">
+  
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -65,7 +68,6 @@
     .modal-content { width: 90%; max-width: 500px; max-height: 90vh; overflow-y:auto; background:white; padding:20px; border-radius:12px;}
     .btn-close { background: none; border: none; font-size: 20px; cursor: pointer; }
 
-    /* แก้ไข PDF Style เพิ่ม Padding ด้านล่างป้องกันตกขอบ */
     .pdf-container { width: 794px; background: white; color: black; padding: 20px 30px 40px 30px; box-sizing: border-box; font-size: 13px; line-height: 1.4; box-shadow: 0 0 10px rgba(0,0,0,0.5);}
     .pdf-title { text-align:center; font-weight:bold; font-size:16px; margin-bottom:5px; }
     .pdf-bold { font-weight: bold; margin-top: 5px; font-size: 13px;}
@@ -84,19 +86,39 @@
       .content-area { margin-left: 250px; }
     }
 
+    /* 4. อัปเดต Mobile UI แบบสมัยใหม่ (Glassmorphism & Floating Bottom Nav) */
     @media (max-width: 767px) {
       body { flex-direction: column; }
       .desktop-only { display: none !important; }
       .logo-area { display: none; }
       .mobile-header { background: var(--primary); color: white; padding: 18px; text-align: center; font-weight: 600; font-size: 18px; position: sticky; top: 0; z-index: 999; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-      .main-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #ffffff; display: flex; flex-direction: row; justify-content: space-around; padding: 8px 0 12px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.08); z-index: 1000; }
+      
+      .main-nav { 
+        position: fixed; 
+        bottom: 15px; 
+        left: 15px; 
+        width: calc(100% - 30px); 
+        background: rgba(255, 255, 255, 0.85); 
+        backdrop-filter: blur(12px); 
+        -webkit-backdrop-filter: blur(12px);
+        display: flex; 
+        flex-direction: row; 
+        justify-content: space-around; 
+        padding: 10px 5px; 
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12); 
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 20px;
+        z-index: 1000; 
+        box-sizing: border-box;
+      }
       .nav-links { display: flex; justify-content: space-around; width: 100%; }
-      .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; color: #80868b; width: 25%; transition: 0.2s; padding: 5px; }
-      .nav-item i { font-size: 20px; margin-bottom: 4px; }
+      .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; color: #80868b; width: 25%; transition: all 0.3s ease; padding: 6px 0; border-radius: 12px; }
+      .nav-item i { font-size: 22px; margin-bottom: 4px; transition: 0.3s; }
       .nav-item .nav-text { display: block; font-size: 11px; font-weight: 500; }
-      .nav-item.active { color: var(--primary); }
+      .nav-item.active { background: rgba(26, 115, 232, 0.1); color: var(--primary); transform: translateY(-3px); }
       .nav-item.active i { transform: scale(1.1); }
-      .content-area { padding: 15px; padding-bottom: 90px; background: #f0f4f9; }
+      
+      .content-area { padding: 15px; padding-bottom: 110px; background: #f0f4f9; }
       .card { border-radius: 16px; padding: 20px; border: none; }
       .form-grid { grid-template-columns: 1fr; gap: 12px; }
       .form-group.full-width { grid-column: span 1; }
@@ -114,9 +136,9 @@
   </div>
 
   <nav class="main-nav">
-    <div class="logo-area"><i class="fa-solid fa-house-medical"></i><span>IPD3 HHC Cloud</span></div>
+    <div class="logo-area"><i class="fa-solid fa-hand-holding-medical"></i><span style="margin-left:8px;">IPD3 HHC Cloud</span></div>
     <div class="nav-links">
-      <a href="#" class="nav-item active" onclick="switchPage('page-home', this)"><i class="fa-solid fa-chart-pie"></i><span class="nav-text">ภาพรวม</span></a>
+      <a href="#" class="nav-item active" onclick="switchPage('page-home', this)"><i class="fa-solid fa-chart-pie"></i><span class="nav-text">หน้าหลัก</span></a>
       <a href="#" class="nav-item" onclick="switchPage('page-report', this)"><i class="fa-solid fa-file-lines"></i><span class="nav-text">รายงาน</span></a>
       <a href="#" class="nav-item" onclick="switchPage('page-tracking', this)"><i class="fa-solid fa-shoe-prints"></i><span class="nav-text">ติดตาม</span></a>
       <a href="#" class="nav-item" onclick="switchPage('page-entry', this)"><i class="fa-solid fa-clipboard-user"></i><span class="nav-text">บันทึกส่งต่อ</span></a>
@@ -124,11 +146,11 @@
     </div>
   </nav>
 
-  <header class="mobile-header"><i class="fa-solid fa-house-medical"></i> IPD3 HHC Cloud</header>
+  <header class="mobile-header"><i class="fa-solid fa-hand-holding-medical"></i> IPD3 HHC Cloud</header>
 
   <main class="content-area">
     <section id="page-home" class="page active card">
-      <div class="card-header"><h3><i class="fa-solid fa-chart-line"></i> Dashboard ภาพรวม</h3></div>
+      <div class="card-header"><h3><i class="fa-solid fa-chart-line"></i> Dashboard หน้าหลัก (HOME)</h3></div>
       <div class="form-grid filter-bar" style="margin-bottom: 20px; background: #f8f9fa; padding: 15px; border-radius: 8px;">
         <div><label>ตั้งแต่วันที่</label><input type="date" id="dash-start" class="input-modern" onchange="updateChart()"></div>
         <div><label>ถึงวันที่</label><input type="date" id="dash-end" class="input-modern" onchange="updateChart()"></div>
@@ -157,8 +179,7 @@
       <div class="card-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
         <h3 style="margin:0;"><i class="fa-solid fa-file-medical"></i> รายงานส่งต่อผู้ป่วย</h3>
         <div style="display:flex; gap:5px;">
-          <button class="btn btn-outline" onclick="exportListPDF('report')"><i class="fa-solid fa-file-pdf"></i> โหลดตาราง PDF</button>
-          <button class="btn btn-success" onclick="exportListCSV('report')"><i class="fa-solid fa-file-csv"></i> ตาราง CSV</button>
+          <button class="btn btn-success" onclick="exportListCSV('report')"><i class="fa-solid fa-file-csv"></i> ส่งออกตาราง CSV ทั้งหมด</button>
         </div>
       </div>
       <div class="form-grid filter-bar" style="margin-bottom: 15px; background: #f8f9fa; padding: 15px; border-radius: 8px;">
@@ -182,8 +203,7 @@
       <div class="card-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
         <h3 style="margin:0;"><i class="fa-solid fa-shoe-prints"></i> ติดตามเยี่ยมบ้าน</h3>
         <div style="display:flex; gap:5px;">
-          <button class="btn btn-outline" onclick="exportListPDF('tracking')"><i class="fa-solid fa-file-pdf"></i> โหลดตาราง PDF</button>
-          <button class="btn btn-success" onclick="exportListCSV('tracking')"><i class="fa-solid fa-file-csv"></i> ตาราง CSV</button>
+          <button class="btn btn-success" onclick="exportListCSV('tracking')"><i class="fa-solid fa-file-csv"></i> ส่งออกตาราง CSV ทั้งหมด</button>
         </div>
       </div>
       <div class="form-grid filter-bar" style="margin-bottom: 15px; background: #f8f9fa; padding: 15px; border-radius: 8px;">
@@ -343,7 +363,7 @@
 
   <script>
     // 🔴 แก้ไขลิงก์ Web App ตรงนี้นะครับ 🔴
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwe28RcydfDVBu914mY2UB5_h5yJYEqEo4KXGQt0s1zuVnf08XNkRozyyDnU3kHMTo/exec";
+    const WEB_APP_URL = "YOUR_GOOGLE_WEB_APP_URL_HERE";
 
     let allData = [];
 
@@ -366,21 +386,16 @@
       if(pageId === 'page-home') updateChart();
     }
 
-    // 🚀 ส่วนที่ 1: แก้โหลดช้า (ใช้การโหลดแบบขนาน Parallel)
     window.onload = async () => {
       document.getElementById('loading-overlay').style.display = 'flex';
       
       try {
-        // ให้คำสั่งเริ่มต้นรันอยู่เบื้องหลังโดยไม่ต้องรอ
         serverCall('initApp').catch(e => console.log(e));
-        
-        // ยิงคำขอไปดึง Data และ Settings พร้อมกัน (ลดเวลาโหลดลงกว่าครึ่ง)
         const [resSettings, resData] = await Promise.all([
           serverCall('getSettings'),
           serverCall('getAllData')
         ]);
         
-        // จัดการ Settings ที่ได้มา
         if(resSettings) {
           const ns = document.getElementById('f_nurse_name'); const ps = document.getElementById('f_nurse_pos');
           ns.innerHTML = '<option value="">-- เลือก --</option>' + (resSettings.nurses || []).map(n => `<option value="${n}">${n}</option>`).join('');
@@ -389,15 +404,11 @@
           document.getElementById('set_positions').value = (resSettings.positions || []).join('\n');
         }
         
-        // จัดการ Data ที่ได้มา
         if(resData) {
           allData = resData.data || []; 
           filterData(); filterTracking(); updateChart();
         }
-        
-      } catch(e) { 
-        alert("การเชื่อมต่อฐานข้อมูลล้มเหลว ตรวจสอบ Web App URL"); 
-      }
+      } catch(e) { alert("การเชื่อมต่อฐานข้อมูลล้มเหลว ตรวจสอบ Web App URL"); }
       
       document.getElementById('loading-overlay').style.display = 'none';
 
@@ -405,7 +416,6 @@
       if(devOther) devOther.addEventListener('change', e => { document.getElementById('f_dev_other_txt').style.display = e.target.checked ? 'block' : 'none'; });
     };
 
-    // ฟังก์ชันนี้เก็บไว้เพื่อให้โหลดข้อมูลซ้ำหลังจากมีการแก้ไขหรือลบ
     async function loadApp() {
       try {
         const res = await serverCall('getAllData');
@@ -544,7 +554,6 @@
       switchPage('page-report', document.querySelector('.nav-item[onclick*="page-report"]'));
     }
 
-    // --- ระบบจัดทำ PDF / JPEG / ดูข้อมูล (Preview) ---
     function setTick(id, isTrue) { document.getElementById(id).innerHTML = isTrue ? '&#9745;' : '&#9744;'; }
     function setTxt(id, txt) { document.getElementById(id).innerText = txt || ''; }
     function fDate(dStr) { return (dStr && !isNaN(new Date(dStr).valueOf())) ? new Date(dStr).toLocaleDateString('th-TH') : '-'; }
@@ -593,10 +602,9 @@
           const link = document.createElement('a'); link.download = fileName + '.jpg'; link.href = imgData; link.click();
         }
 
-        // 🚀 ส่วนที่ 2: แก้ PDF ตกขอบ โดยเพิ่มระยะขอบด้านล่างเป็น 0.5
         if (type === 'pdf' || type === 'both') {
           const opt = { 
-            margin: [0.3, 0.3, 0.5, 0.3], // [บน, ขวา, ล่าง, ซ้าย]
+            margin: [0.3, 0.3, 0.5, 0.3], 
             filename: fileName + '.pdf', 
             image: { type: 'jpeg', quality: 1 }, 
             html2canvas: { scale: 2, useCORS: true, logging: false }, 
@@ -628,7 +636,6 @@
       } catch(e) { alert("ข้อมูลไม่สมบูรณ์"); } 
     }
 
-    // --- Report ---
     function getFilteredReport() {
       const sVal = document.getElementById('r-start').value; const eVal = document.getElementById('r-end').value;
       const p = document.getElementById('r-pcu').value; const n = document.getElementById('r-name').value.toLowerCase();
@@ -707,46 +714,23 @@
       }
     }
 
-    // --- Export List ---
-    async function exportListPDF(page) {
-      const data = page === 'report' ? getFilteredReport() : getFilteredTracking();
-      if(data.length === 0) return alert('ไม่มีข้อมูลที่ตรงกับเงื่อนไข');
-      const overlay = document.getElementById('loading-overlay');
-      overlay.style.display = 'flex';
-      
-      const wrapper = document.createElement('div');
-      wrapper.style.position = 'absolute'; wrapper.style.top = '0'; wrapper.style.left = '0'; wrapper.style.width = '1000px'; wrapper.style.background = 'white'; wrapper.style.padding = '20px'; wrapper.style.zIndex = '-1';
-      
-      let html = `<div style="font-family: 'Sarabun', sans-serif; color: #000;">
-        <h2 style="text-align:center;">รายงาน${page === 'report' ? 'ส่งต่อผู้ป่วย' : 'ติดตามเยี่ยมบ้าน'}</h2>
-        <table style="width:100%; border-collapse:collapse; font-size:12px; margin-top:20px;">
-          <thead><tr><th style="border:1px solid #000; padding:8px;">วันที่ส่งต่อ</th><th style="border:1px solid #000; padding:8px;">HN</th><th style="border:1px solid #000; padding:8px;">ชื่อ-สกุล</th><th style="border:1px solid #000; padding:8px;">รพ.สต. ปลายทาง</th><th style="border:1px solid #000; padding:8px;">สถานะการติดตาม</th></tr></thead>
-          <tbody>`;
-      data.forEach(r => { html += `<tr><td style="border:1px solid #000; padding:8px;">${fDate(r[2])}</td><td style="border:1px solid #000; padding:8px;">${r[4]||''}</td><td style="border:1px solid #000; padding:8px;">${r[5]||''}</td><td style="border:1px solid #000; padding:8px;">${r[10]||''}</td><td style="border:1px solid #000; padding:8px;">${r[14] || 'รอติดตาม'}</td></tr>`; });
-      html += `</tbody></table></div>`;
-      
-      wrapper.innerHTML = html; document.body.appendChild(wrapper);
-      await new Promise(r => setTimeout(r, 500)); 
-
-      try {
-        const opt = { margin: [0.3, 0.3, 0.5, 0.3], filename: `ตารางรายงาน_${page}.pdf`, image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' } };
-        await html2pdf().set(opt).from(wrapper).save(); 
-      } catch(e) { alert("ออกเอกสารล้มเหลว"); }
-
-      document.body.removeChild(wrapper);
-      overlay.style.display = 'none';
-    }
-
+    // 2. ปรับฟังก์ชันส่งออก CSV ให้ดึงรายละเอียดข้อมูลครบทุก Field
     function exportListCSV(page) {
       const data = page === 'report' ? getFilteredReport() : getFilteredTracking();
       if(data.length === 0) return alert('ไม่มีข้อมูลที่ตรงกับเงื่อนไขการค้นหา');
-      let csv = '\uFEFFวันที่ส่งต่อ,HN,ชื่อ-สกุล,รพ.สต. ปลายทาง,สถานะการติดตาม\n';
-      data.forEach(r => { csv += `"${fDate(r[2])}","${r[4]||''}","${r[5]||''}","${r[10]||''}","${r[14] || 'รอติดตาม'}"\n`; });
+      
+      let csv = '\uFEFFวันที่ส่งต่อ,วันที่จำหน่าย,AN,HN,ชื่อ-สกุล,อายุ,เพศ/ตึก,การวินิจฉัยโรค,สิทธิการรักษา,ที่อยู่,ผู้ดูแล,ความเกี่ยวข้อง,เบอร์โทรศัพท์,รพ.สต. ปลายทาง,T,PR,RR,BP,BW,ADL,PPS,การช่วยเหลือตนเอง,สถานะการติดตาม,ผู้ติดตาม,ผลประเมิน\n';
+      
+      data.forEach(r => { 
+        let j = {}; try { if(r[19]) j = JSON.parse(r[19]); } catch(e){}
+        let cleanPhone = r[8] ? String(r[8]).replace(/[^0-9]/g, '') : '';
+        csv += `"${fDate(r[2])}","${fDate(j.discharge_date)}","${r[3]||''}","${r[4]||''}","${r[5]||''}","${r[6]||''}","${j.ward||''}","${r[7]||''}","${j.right||''}","${r[9]||''}","${j.caregiver||''}","${j.relation||''}","${cleanPhone}","${r[10]||''}","${j.t||''}","${j.pr||''}","${j.rr||''}","${r[12]||''}","${j.bw||''}","${r[13]||''}","${j.pps||''}","${j.selfcare||''}","${r[14] || 'รอติดตาม'}","${r[17] || ''}","${r[15] || ''}"\n`;
+      });
+      
       const link = document.createElement("a"); link.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
-      link.download = `ตารางรายงาน_${page}.csv`; link.click();
+      link.download = `ตารางข้อมูลส่งต่อเยี่ยมบ้าน_${new Date().toLocaleDateString('th-TH').replace(/\//g,'-')}.csv`; link.click();
     }
 
-    // --- Tracking ---
     function getFilteredTracking() {
       const sVal = document.getElementById('t-start').value; const eVal = document.getElementById('t-end').value;
       const p = document.getElementById('t-pcu').value; const st = document.getElementById('t-status').value; 
@@ -823,7 +807,6 @@
       document.getElementById('loading-overlay').style.display = 'none';
     }
 
-    // --- Dashboard Chart ---
     function updateChart() {
       try {
         const type = document.getElementById('chart-type').value; 
