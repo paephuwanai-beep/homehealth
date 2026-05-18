@@ -53,6 +53,9 @@
     .track-card.status-waiting { border-top-color: #f4b400; }
     .track-card.status-danger { border-top-color: #d32f2f; }
     
+    .timeline { display: flex; flex-direction: column; gap: 15px; margin-top: 15px; width: 100%; }
+    .timeline-item { background: white; border-left: 4px solid var(--primary); padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    
     .card-actions { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 10px; }
     .card-actions .btn { flex: 1; justify-content: center; }
 
@@ -62,6 +65,7 @@
     .modal-content { width: 90%; max-width: 500px; max-height: 90vh; overflow-y:auto; background:white; padding:20px; border-radius:12px;}
     .btn-close { background: none; border: none; font-size: 20px; cursor: pointer; }
 
+    /* PDF Style */
     .pdf-container { width: 794px; background: white; color: black; padding: 20px; box-sizing: border-box; font-size: 13px; line-height: 1.4; box-shadow: 0 0 10px rgba(0,0,0,0.5);}
     .pdf-title { text-align:center; font-weight:bold; font-size:16px; margin-bottom:5px; }
     .pdf-bold { font-weight: bold; margin-top: 5px; font-size: 13px;}
@@ -71,6 +75,7 @@
     .pdf-table th, .pdf-table td { border: 1px solid #000; padding: 5px; text-align: left; }
     .cb { font-size: 14px; margin-right: 2px;}
 
+    /* การแสดงผลเมนู Bottom Navigation บนมือถือ */
     @media (min-width: 768px) {
       .main-nav { width: 250px; position: fixed; height: 100vh; background: var(--nav-bg); color: white; display: flex; flex-direction: column; }
       .logo-area { padding: 25px 20px; font-size: 18px; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.1); }
@@ -85,13 +90,16 @@
       .desktop-only { display: none !important; }
       .logo-area { display: none; }
       .mobile-header { background: var(--primary); color: white; padding: 18px; text-align: center; font-weight: 600; font-size: 18px; position: sticky; top: 0; z-index: 999; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+      
+      /* Bottom Navigation Bar */
       .main-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #ffffff; display: flex; flex-direction: row; justify-content: space-around; padding: 8px 0 12px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.08); z-index: 1000; }
       .nav-links { display: flex; justify-content: space-around; width: 100%; }
-      .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; color: #80868b; width: 25%; transition: 0.2s; }
-      .nav-item i { font-size: 22px; margin-bottom: 4px; }
+      .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; color: #80868b; width: 25%; transition: 0.2s; padding: 5px; }
+      .nav-item i { font-size: 20px; margin-bottom: 4px; }
       .nav-item .nav-text { display: block; font-size: 11px; font-weight: 500; }
       .nav-item.active { color: var(--primary); }
       .nav-item.active i { transform: scale(1.1); }
+      
       .content-area { padding: 15px; padding-bottom: 90px; background: #f0f4f9; }
       .card { border-radius: 16px; padding: 20px; border: none; }
       .form-grid { grid-template-columns: 1fr; gap: 12px; }
@@ -109,7 +117,6 @@
     </div>
   </div>
 
-  <!-- โครงสร้าง HTML ทั้งหมด (เนื้อหาเดิมของคุณ) -->
   <nav class="main-nav">
     <div class="logo-area"><i class="fa-solid fa-house-medical"></i><span>IPD3 HHC Cloud</span></div>
     <div class="nav-links">
@@ -124,7 +131,6 @@
   <header class="mobile-header"><i class="fa-solid fa-house-medical"></i> IPD3 HHC Cloud</header>
 
   <main class="content-area">
-    <!-- หน้า 1: Dashboard -->
     <section id="page-home" class="page active card">
       <div class="card-header"><h3><i class="fa-solid fa-chart-line"></i> Dashboard ภาพรวม</h3></div>
       <div class="form-grid filter-bar" style="margin-bottom: 20px; background: #f8f9fa; padding: 15px; border-radius: 8px;">
@@ -151,7 +157,6 @@
       <div id="tableContainer" class="table-responsive" style="display:none; max-height:45vh; overflow-y:auto;"></div>
     </section>
 
-    <!-- หน้า 2: Report -->
     <section id="page-report" class="page card">
       <div class="card-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
         <h3 style="margin:0;"><i class="fa-solid fa-file-medical"></i> รายงานส่งต่อผู้ป่วย</h3>
@@ -170,14 +175,13 @@
       
       <div id="report-table-wrapper" class="table-responsive">
         <table class="modern-table" id="reportTable">
-          <thead><tr><th>วันที่ส่งต่อ</th><th>HN</th><th>ชื่อ-สกุล</th><th>รพ.สต. ปลายทาง</th><th style="width:280px;">จัดการเอกสาร</th></tr></thead>
+          <thead><tr><th>วันที่ส่งต่อ</th><th>HN</th><th>ชื่อ-สกุล</th><th>รพ.สต. ปลายทาง</th><th style="width:300px;">จัดการเอกสาร</th></tr></thead>
           <tbody></tbody>
         </table>
       </div>
       <div id="report-card-wrapper" class="card-view-grid" style="display:none;"></div>
     </section>
 
-    <!-- หน้า 3: Tracking -->
     <section id="page-tracking" class="page card">
       <div class="card-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
         <h3 style="margin:0;"><i class="fa-solid fa-shoe-prints"></i> ติดตามเยี่ยมบ้าน</h3>
@@ -196,7 +200,6 @@
       <div id="trackingContainer" class="card-view-grid"></div>
     </section>
 
-    <!-- หน้า 4: บันทึกข้อมูล (Entry) -->
     <section id="page-entry" class="page card">
       <div class="card-header" style="display:flex; justify-content:space-between; align-items:center;">
         <h3 id="entry-title" style="margin:0;"><i class="fa-solid fa-clipboard-user"></i> แบบบันทึกการส่งต่อ (รพ.คอนสาร)</h3>
@@ -216,10 +219,10 @@
           <div class="form-group full-width"><label>ที่อยู่ (หลังจำหน่าย)</label><input type="text" id="f_address" class="input-modern"></div>
           <div class="form-group"><label>ผู้ดูแล</label><input type="text" id="f_caregiver" class="input-modern"></div>
           <div class="form-group"><label>เกี่ยวข้องเป็น</label><input type="text" id="f_relation" class="input-modern"></div>
-          <div class="form-group"><label>เบอร์โทรศัพท์</label><input type="tel" id="f_phone" class="input-modern" placeholder="08xxxxxxxx" pattern="[0-9]{9,10}" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '');"></div>
+          <div class="form-group"><label>เบอร์โทรศัพท์ (ใส่เฉพาะตัวเลข 10 หลัก)</label><input type="tel" id="f_phone" class="input-modern" placeholder="08xxxxxxxx" pattern="[0-9]{9,10}" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '');"></div>
           <div class="form-group"><label>สิทธิการรักษา</label>
             <select id="f_right" class="input-modern" onchange="toggleRightOther()">
-              <option value="">-- เลือกสิทธิ --</option><option value="ประกันสุขภาพถ้วนหน้า (UC)">ประกันสุขภาพถ้วนหน้า (UC)</option><option value="ประกันสังคมโรงพยาบาลชัยภูมิ">ประกันสังคมโรงพยาบาลชัยภูมิ</option><option value="อื่นๆ">อื่นๆ</option>
+              <option value="">-- เลือกสิทธิ --</option><option value="ประกันสุขภาพถ้วนหน้า (UC)">ประกันสุขภาพถ้วนหน้า (UC)</option><option value="ประกันสังคมโรงพยาบาลชัยภูมิ">ประกันสังคมโรงพยาบาลชัยภูมิ</option><option value="ประกันสังคมนอกเขต">ประกันสังคมนอกเขต</option><option value="เบิกตรงกลมบัญชีกลาง (ข้าราชการ)">เบิกตรงกลมบัญชีกลาง (ข้าราชการ)</option><option value="ข้าราชการท้องถิ่น">ข้าราชการท้องถิ่น</option><option value="เบิกต้นสังกัด">เบิกต้นสังกัด</option><option value="ชำระเงินเอง">ชำระเงินเอง</option><option value="พรบ.หลักฐานครบ">พรบ.หลักฐานครบ</option><option value="ชาวต่างชาติขึ้นทะเบียน">ชาวต่างชาติขึ้นทะเบียน</option><option value="ชาวต่างชาติ (ชำระเงิน)">ชาวต่างชาติ (ชำระเงิน)</option><option value="อื่นๆ">อื่นๆ</option>
             </select>
             <input type="text" id="f_right_other" class="input-modern" placeholder="ระบุสิทธิอื่นๆ..." style="display:none; margin-top:5px;">
           </div>
@@ -230,7 +233,7 @@
           <div class="form-group"><label>สถานที่นัด</label><input type="text" id="f_appt_place" class="input-modern"></div>
           <div class="form-group full-width"><label>สถานบริการที่ติดตามเยี่ยม (รพ.สต.)</label>
             <select id="f_pcu" class="input-modern" required>
-              <option value="">-- เลือก รพ.สต. --</option><option value="รพ.สต.ทุ่งพระ">รพ.สต.ทุ่งพระ</option><option value="รพ.คอนสาร(ปฐมภูมิ)">รพ.คอนสาร(ปฐมภูมิ)</option>
+              <option value="">-- เลือก รพ.สต. --</option><option value="รพ.สต.ทุ่งพระ">รพ.สต.ทุ่งพระ</option><option value="รพ.สต.โนนคูณ">รพ.สต.โนนคูณ</option><option value="รพ.สต.ห้วยยาง">รพ.สต.ห้วยยาง</option><option value="รพ.สต.ผาเบียด">รพ.สต.ผาเบียด</option><option value="รพ.สต.ทุ่งลุยลาย">รพ.สต.ทุ่งลุยลาย</option><option value="รพ.สต.หนองหญ้าโก้ง">รพ.สต.หนองหญ้าโก้ง</option><option value="รพ.สต.ดงบัง">รพ.สต.ดงบัง</option><option value="รพ.สต.ทุ่งนาเลา">รพ.สต.ทุ่งนาเลา</option><option value="รพ.สต.ดงกลาง">รพ.สต.ดงกลาง</option><option value="รพ.คอนสาร(ปฐมภูมิ)">รพ.คอนสาร(ปฐมภูมิ)</option>
             </select>
           </div>
         </div>
@@ -252,56 +255,110 @@
           <div class="card-bg-light">
             <label style="color:#1a73e8; font-weight:bold;">ปัญหาและความต้องการก่อนจำหน่าย</label>
             <div style="margin-top:10px;"><label>1.ช่วยเหลือตนเอง:</label><div class="checkbox-group"><label><input type="radio" name="f_selfcare" value="ได้ดี"> ได้ดี</label><label><input type="radio" name="f_selfcare" value="ได้น้อย"> ได้น้อย</label><label><input type="radio" name="f_selfcare" value="ไม่ได้"> ไม่ได้</label></div><input type="text" id="f_motor" class="input-modern" placeholder="Motor power..." style="margin-top:5px;"></div>
-            <div style="margin-top:10px;"><label>2.อุปกรณ์ที่ติดตัว:</label><div class="checkbox-group"><label><input type="checkbox" id="c_dev_foley"> Foley's cath</label> <label><input type="checkbox" id="c_dev_ng"> NG Tube</label><br><label><input type="checkbox" id="c_dev_wound"> มีแผล</label> <label><input type="checkbox" id="c_dev_other"> อื่นๆ</label><input type="text" id="f_dev_other_txt" class="input-modern" placeholder="ระบุ..." style="display:none; margin-top:5px;"></div></div>
-            <div style="margin-top:10px;"><label>3.ภาวะแทรกซ้อน:</label><div class="checkbox-group"><label><input type="checkbox" id="c_comp_uti"> UTI</label> <label><input type="checkbox" id="c_comp_bed"> Bed sore</label> <label><input type="checkbox" id="c_comp_pneu"> pneumonia</label></div></div>
-            <div style="margin-top:10px;"><label>4.สภาพจิตใจ:</label><div class="checkbox-group"><label><input type="radio" name="f_mental" value="ไม่มี"> ไม่มี</label><label><input type="radio" name="f_mental" value="มีปัญหา"> มีปัญหา</label></div><input type="text" id="f_mental_txt" class="input-modern" style="margin-top:5px;"></div>
-            <div style="margin-top:10px;"><label>5.ปัญหาอื่นๆ:</label><div class="checkbox-group" style="display:grid; grid-template-columns:1fr 1fr;"><label><input type="checkbox" id="c_p_disease"> รับรู้ภาวะโรค</label> <label><input type="checkbox" id="c_p_appt"> มาตรวจตามนัด</label></div><input type="text" id="f_p_other_txt" class="input-modern" style="margin-top:5px;"></div>
+            <div style="margin-top:10px;"><label>2.อุปกรณ์ที่ติดตัว:</label><div class="checkbox-group"><label><input type="checkbox" id="c_dev_foley"> Foley's cath</label> <label><input type="checkbox" id="c_dev_ng"> NG Tube</label><br><label><input type="checkbox" id="c_dev_colo"> colostomy</label> <label><input type="checkbox" id="c_dev_tt"> TT tube</label><br><label><input type="checkbox" id="c_dev_wound"> มีแผล</label> <label><input type="checkbox" id="c_dev_other"> อื่นๆ</label><input type="text" id="f_dev_other_txt" class="input-modern" placeholder="ระบุ..." style="display:none; margin-top:5px;"></div></div>
+            <div style="margin-top:10px;"><label>3.ภาวะแทรกซ้อน:</label><div class="checkbox-group"><label><input type="checkbox" id="c_comp_uti"> UTI</label> <label><input type="checkbox" id="c_comp_bed"> Bed sore</label> <label><input type="checkbox" id="c_comp_pneu"> pneumonia</label></div><input type="text" id="f_comp_other_txt" class="input-modern" placeholder="อื่นๆ ระบุ..." style="margin-top:5px;"></div>
+            <div style="margin-top:10px;"><label>4.สภาพจิตใจ:</label><div class="checkbox-group"><label><input type="radio" name="f_mental" value="ไม่มี"> ไม่มี</label><label><input type="radio" name="f_mental" value="มีปัญหา"> มีปัญหา</label></div><input type="text" id="f_mental_txt" class="input-modern" placeholder="ระบุปัญหาจิตใจ..." style="margin-top:5px;"></div>
+            <div style="margin-top:10px;"><label>5.ปัญหาอื่นๆ:</label><div class="checkbox-group" style="display:grid; grid-template-columns:1fr 1fr;"><label><input type="checkbox" id="c_p_disease"> รับรู้ภาวะโรค</label> <label><input type="checkbox" id="c_p_eat"> รับประทานอาหาร</label><label><input type="checkbox" id="c_p_med"> การใช้ยา</label> <label><input type="checkbox" id="c_p_ex"> ออกกำลังกาย</label><label><input type="checkbox" id="c_p_pt"> กายภาพบำบัด</label> <label><input type="checkbox" id="c_p_obs"> สังเกตอาการ</label><label><input type="checkbox" id="c_p_appt"> มาตรวจตามนัด</label> <label><input type="checkbox" id="c_p_daily"> ดูแลกิจวัตร</label></div><input type="text" id="f_p_other_txt" class="input-modern" placeholder="อื่นๆระบุ..." style="margin-top:5px;"></div>
           </div>
           <div class="card-bg-light">
             <label style="color:#1a73e8; font-weight:bold;">ให้ความรู้และคำแนะนำเกี่ยวกับ</label>
             <div class="checkbox-group" style="display:flex; flex-direction:column; gap:8px;">
-              <label><input type="checkbox" id="c_a_patho"> พยาธิสภาพของโรค</label>
-              <label><input type="checkbox" id="c_a_appt"> การมาตรวจตามนัด</label>
+              <label><input type="checkbox" id="c_a_patho"> พยาธิสภาพของโรค</label><label><input type="checkbox" id="c_a_clean"> การดูแลความสะอาดร่างกาย</label><label><input type="checkbox" id="c_a_turn"> การพลิกตะแคงตัว ทุก 2 ชั่วโมง</label><label><input type="checkbox" id="c_a_tube"> การดูแลFoley's cath, NG Tube, TT-tube</label><label><input type="checkbox" id="c_a_wound"> การดูแลแผล</label><label><input type="checkbox" id="c_a_pt"> คำแนะนำการทำกายภาพบำบัด</label><label><input type="checkbox" id="c_a_eattxt"> การรับประทานอาหารตามแผนการรักษาของแพทย์</label><label><input type="checkbox" id="c_a_water"> การดื่มน้ำมากๆ</label><label><input type="checkbox" id="c_a_veg"> การรับประทานอาหารผักและผลไม้</label><label><input type="checkbox" id="c_a_smoke"> การงดสูบบุหรี่และดื่มสุรา</label><label><input type="checkbox" id="c_a_diet"> การรับประทานอาหารเฉพาะโรค</label><label><input type="checkbox" id="c_a_blend"> การฝึกการทำอาหารปั่น</label><label><input type="checkbox" id="c_a_mind"> การดูแลสภาพจิตใจ</label><label><input type="checkbox" id="c_a_sup"> การ Support จิตใจ</label><label><input type="checkbox" id="c_a_appt"> การมาตรวจตามนัด</label>
             </div>
           </div>
 
           <div class="form-group full-width" style="display:flex; gap:10px; align-items:flex-end; margin-top:15px; flex-wrap:wrap;">
-            <div style="flex:1; min-width:150px;"><label>ผู้บันทึก</label><select id="f_nurse_name" class="input-modern" required><option value="">-- รอโหลดข้อมูล --</option></select></div>
+            <div style="flex:1; min-width:150px;"><label>ผู้บันทึก (พยาบาลที่ส่งต่อ)</label><select id="f_nurse_name" class="input-modern" required><option value="">-- รอโหลดข้อมูล --</option></select></div>
             <div style="flex:1; min-width:150px;"><label>ตำแหน่ง</label><select id="f_nurse_pos" class="input-modern"><option value="">-- รอโหลดข้อมูล --</option></select></div>
             <button type="button" class="btn btn-outline" style="height:42px;" onclick="openSettingsModal()"><i class="fa-solid fa-gear"></i> ตั้งค่า</button>
           </div>
         </div>
         <button type="submit" id="btn-main-submit" class="btn btn-primary btn-submit" style="font-size:18px; padding:15px; margin-top:20px;">
-          <i class="fa-solid fa-download"></i> บันทึกข้อมูล
+          <i class="fa-solid fa-download"></i> บันทึกข้อมูลและสร้างไฟล์เอกสารทันที
         </button>
       </form>
     </section>
   </main>
 
-  <!-- Modals -->
-  <div id="settingsModal" class="modal-overlay"><div class="modal-content card"><div class="card-header" style="display:flex; justify-content:space-between;"><h3><i class="fa-solid fa-gear"></i> ตั้งค่ารายชื่อ</h3><button type="button" class="btn-close" onclick="closeSettingsModal()"><i class="fa-solid fa-xmark"></i></button></div><div class="form-grid"><div class="form-group"><label>รายชื่อพยาบาล</label><textarea id="set_nurses" class="input-modern" rows="6"></textarea></div><div class="form-group"><label>ตำแหน่ง</label><textarea id="set_positions" class="input-modern" rows="6"></textarea></div></div><button type="button" class="btn btn-primary" onclick="saveSettingsData()">บันทึก</button></div></div>
+  <div id="settingsModal" class="modal-overlay"><div class="modal-content card"><div class="card-header" style="display:flex; justify-content:space-between;"><h3><i class="fa-solid fa-gear"></i> ตั้งค่ารายชื่อ</h3><button type="button" class="btn-close" onclick="closeSettingsModal()"><i class="fa-solid fa-xmark"></i></button></div><div class="form-grid"><div class="form-group"><label>รายชื่อพยาบาล (1 บรรทัดต่อ 1 ชื่อ)</label><textarea id="set_nurses" class="input-modern" rows="6"></textarea></div><div class="form-group"><label>ตำแหน่ง</label><textarea id="set_positions" class="input-modern" rows="6"></textarea></div></div><button type="button" class="btn btn-primary" onclick="saveSettingsData()">บันทึก</button></div></div>
 
   <div id="trackModal" class="modal-overlay"><div class="modal-content card"><div class="card-header" style="display:flex; justify-content:space-between;"><h3 style="color:#0f9d58;"><i class="fa-solid fa-user-nurse"></i> ผลติดตาม</h3><button type="button" class="btn-close" onclick="closeTrackModal()"><i class="fa-solid fa-xmark"></i></button></div><form id="trackForm" onsubmit="submitTrackData(event)"><input type="hidden" id="track-id"><div class="form-grid"><div class="form-group"><label>วันที่ติดตาม</label><input type="date" id="track-date-input" class="input-modern" required></div><div class="form-group"><label>ผู้ติดตาม</label><input type="text" id="track-follower" class="input-modern" required></div><div class="form-group full-width"><label>สถานะ</label><select id="track-status-input" class="input-modern" required><option value="รอติดตาม">รอติดตาม</option><option value="มีการเยี่ยมติดตามแล้ว">มีการเยี่ยมติดตามแล้ว</option><option value="ไม่สามารถติดตามเยี่ยมบ้านได้">ไม่สามารถติดตามเยี่ยมบ้านได้</option><option value="ไม่ทราบข้อมูลการเยี่ยมบ้าน">ไม่ทราบข้อมูลการเยี่ยมบ้าน</option></select></div><div class="form-group full-width"><label>สาเหตุ (กรณีตามไม่ได้)</label><input type="text" id="track-reason" class="input-modern"></div><div class="form-group full-width"><label>ผลประเมิน</label><select id="track-result" class="input-modern"><option value="">-- เลือก --</option><option value="ผู้ป่วยทุเลา หายดีจากโรคที่เป็น ไม่ต้องติดตามต่อ">ทุเลา หายดี ไม่ต้องตามต่อ</option><option value="ยังต้องติดตามต่อเนื่อง">ยังต้องติดตามต่อเนื่อง</option><option value="มีภาวะแทรกซ้อน หรือ อาการแย่ลง ต้องได้รับการรักษาเพิ่มเติม">มีภาวะแทรกซ้อน ต้องรักษาเพิ่ม</option></select></div></div><button type="submit" class="btn btn-success" id="btn-track-save" style="width:100%; margin-top:15px;">บันทึกผล</button></form></div></div>
 
+  <div id="pdf-wrapper" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:flex-start; overflow-y:auto; padding:30px 0;">
+    <button id="pdf-close-btn" class="btn btn-danger" style="display:none; position:fixed; top:20px; right:20px; z-index:10000; box-shadow:0 2px 10px rgba(0,0,0,0.5);" onclick="document.getElementById('pdf-wrapper').style.display='none'"><i class="fa-solid fa-xmark"></i> ปิดหน้าต่าง</button>
+    <div id="pdf-template" class="pdf-container">
+      <div class="pdf-title">แบบบันทึกการส่งต่อเพื่อดูแลต่อเนื่อง โรงพยาบาลคอนสาร จังหวัดชัยภูมิ</div>
+      <div class="pdf-bold">1.ข้อมูลทั่วไป</div>
+      <div class="pdf-line">ชื่อผู้ป่วย<span class="pdf-dot" id="p_name" style="width:250px;"></span>อายุ<span class="pdf-dot" id="p_age" style="width:30px; text-align:center;"></span>ปี HN<span class="pdf-dot" id="p_hn" style="width:80px; text-align:center;"></span>ตึกผู้ป่วย<span class="pdf-dot" id="p_ward" style="flex:1;"></span></div>
+      <div class="pdf-line">ที่อยู่(หลังจำหน่าย) บ้านเลขที่<span class="pdf-dot" id="p_address" style="flex:1;"></span></div>
+      <div class="pdf-line">ผู้ดูแล<span class="pdf-dot" id="p_caregiver" style="width:200px;"></span>เกี่ยวข้องเป็น<span class="pdf-dot" id="p_relation" style="width:120px;"></span>เบอร์โทรศัพท์<span class="pdf-dot" id="p_phone" style="flex:1;"></span></div>
+      <div class="pdf-line">การวินิจฉัยโรค<span class="pdf-dot" id="p_dx" style="flex:1;"></span>Palliative <span id="p_pal_y" class="cb">☐</span> ใช่ <span id="p_pal_n" class="cb">☐</span> ไม่ใช่</div>
+      <div class="pdf-line">วันที่เข้ารับการรักษาในโรงพยาบาล<span class="pdf-dot" id="p_admit" style="width:120px;"></span>วันที่จำหน่าย<span class="pdf-dot" id="p_disdate" style="flex:1;"></span></div>
+      <div class="pdf-line">วันนัด<span class="pdf-dot" id="p_appt" style="width:120px;"></span>สถานที่นัด<span class="pdf-dot" id="p_place" style="width:120px;"></span>สิทธิการรักษา<span class="pdf-dot" id="p_right" style="flex:1;"></span></div>
+      <div class="pdf-line">สถานบริการที่ติดตามเยี่ยม รพ.สต.<span class="pdf-dot" id="p_pcu" style="flex:1;"></span></div>
+
+      <div class="pdf-bold">2.สรุปสภาพผู้ป่วยที่สำคัญก่อนส่งต่อ</div>
+      <div class="pdf-line">V/S: T<span class="pdf-dot" id="p_t" style="width:40px;"></span>PR<span class="pdf-dot" id="p_pr" style="width:40px;"></span>RR<span class="pdf-dot" id="p_rr" style="width:40px;"></span>BP<span class="pdf-dot" id="p_bp" style="width:70px;"></span>BW<span class="pdf-dot" id="p_bw" style="width:40px;"></span>ADL<span class="pdf-dot" id="p_adl" style="width:50px;"></span>PPS<span class="pdf-dot" id="p_pps" style="flex:1;"></span></div>
+      <div class="pdf-line" style="margin-top:5px;"><strong>3.ยาที่ได้รับวันจำหน่าย</strong></div>
+      <div class="pdf-line"><span class="pdf-dot" id="p_meds1" style="flex:1;"></span></div>
+      <div class="pdf-line"><span class="pdf-dot" id="p_meds2" style="flex:1;"></span></div>
+
+      <table class="pdf-table">
+        <tr><th style="width:50%;">ปัญหาและความต้องการก่อนจำหน่าย</th><th style="width:50%;">กิจกรรมการพยาบาล/คำแนะนำ</th></tr>
+        <tr>
+          <td style="vertical-align:top; padding:8px;">
+            <div style="text-decoration:underline; margin-bottom:5px;">วันที่จำหน่ายออกจากรพ.</div>
+            <div>1.ช่วยเหลือตนเอง <span id="p_sc_1" class="cb">☐</span> ได้ดี <span id="p_sc_2" class="cb">☐</span> ได้น้อย <span id="p_sc_3" class="cb">☐</span> ไม่ได้</div>
+            <div>Motor power <span class="pdf-dot" id="p_motor" style="width:150px;"></span></div>
+            <div style="margin-top:5px;">2. อุปกรณ์/วัสดุที่ติดตัวผู้รับบริการ</div>
+            <div style="display:flex; justify-content:space-between; padding-left:5px;"><div><span id="p_d_foley" class="cb">☐</span> Foley's cath</div><div><span id="p_d_ng" class="cb">☐</span> NG Tube</div></div>
+            <div style="display:flex; justify-content:space-between; padding-left:5px;"><div><span id="p_d_colo" class="cb">☐</span> colostomy</div><div><span id="p_d_tt" class="cb">☐</span> TT tube</div></div>
+            <div style="display:flex; justify-content:space-between; padding-left:5px;"><div><span id="p_d_wound" class="cb">☐</span> มีแผล</div><div><span id="p_d_oth" class="cb">☐</span> อื่นๆ ระบุ <span class="pdf-dot" id="p_d_oth_t" style="width:60px;"></span></div></div>
+            <div style="margin-top:5px;">3. ภาวะแทรกซ้อน <span id="p_c_uti" class="cb">☐</span> UTI <span id="p_c_bed" class="cb">☐</span> Bed sore <span id="p_c_pneu" class="cb">☐</span> pneumonia</div>
+            <div>อื่นๆ ระบุ <span class="pdf-dot" id="p_c_oth" style="width:80%;"></span></div>
+            <div style="margin-top:5px;">4. สภาพจิตใจ <span id="p_m_no" class="cb">☐</span> ไม่มี <span id="p_m_yes" class="cb">☐</span> มีปัญหา ระบุ <span class="pdf-dot" id="p_m_txt" style="width:80px;"></span></div>
+            <div style="margin-top:5px;">5. ปัญหาอื่นๆ (ระบุปัญหาที่ต้องการให้ดูแลที่บ้าน)</div>
+            <div style="display:flex; justify-content:space-between; padding-left:5px;"><div><span id="p_pr_1" class="cb">☐</span> การรับรู้ภาวะโรค</div><div><span id="p_pr_2" class="cb">☐</span> การรับประทานอาหาร</div></div>
+            <div style="display:flex; justify-content:space-between; padding-left:5px;"><div><span id="p_pr_3" class="cb">☐</span> การใช้ยา</div><div><span id="p_pr_4" class="cb">☐</span> การออกกำลังกาย</div></div>
+            <div style="display:flex; justify-content:space-between; padding-left:5px;"><div><span id="p_pr_5" class="cb">☐</span> กายภาพบำบัด</div><div><span id="p_pr_6" class="cb">☐</span> การสังเกตอาการผิดปกติ</div></div>
+            <div style="display:flex; justify-content:space-between; padding-left:5px;"><div><span id="p_pr_7" class="cb">☐</span> การมาตรวจตามนัด</div><div><span id="p_pr_8" class="cb">☐</span> การดูแลกิจวัตรประจำวัน</div></div>
+            <div>อื่นๆระบุ <span class="pdf-dot" id="p_pr_oth" style="width:80%;"></span></div>
+          </td>
+          <td style="vertical-align:top; padding:8px;">
+            <div style="text-decoration:underline; margin-bottom:5px;">ให้ความรู้และคำแนะนำเกี่ยวกับ</div>
+            <div><span id="p_a_1" class="cb">☐</span> พยาธิสภาพของโรค</div><div><span id="p_a_2" class="cb">☐</span> การดูแลความสะอาดร่างกาย</div>
+            <div><span id="p_a_3" class="cb">☐</span> การพลิกตะแคงตัว ทุก 2 ชั่วโมง</div><div><span id="p_a_4" class="cb">☐</span> การดูแลFoley's cath, NG Tube, TT-tube</div>
+            <div><span id="p_a_5" class="cb">☐</span> การดูแลแผล</div><div><span id="p_a_6" class="cb">☐</span> คำแนะนำการทำกายภาพบำบัด</div>
+            <div><span id="p_a_7" class="cb">☐</span> การรับประทานอาหารตามแผนการรักษาของแพทย์</div><div><span id="p_a_8" class="cb">☐</span> การดื่มน้ำมากๆ</div>
+            <div><span id="p_a_9" class="cb">☐</span> การรับประทานอาหารผักและผลไม้</div><div><span id="p_a_10" class="cb">☐</span> การงดสูบบุหรี่และดื่มสุรา</div>
+            <div><span id="p_a_11" class="cb">☐</span> การรับประทานอาหารเฉพาะโรค</div><div><span id="p_a_12" class="cb">☐</span> การฝึกการทำอาหารปั่น</div>
+            <div><span id="p_a_13" class="cb">☐</span> การดูแลสภาพจิตใจ</div><div><span id="p_a_14" class="cb">☐</span> การ Support จิตใจ</div><div><span id="p_a_15" class="cb">☐</span> การมาตรวจตามนัด</div>
+          </td>
+        </tr>
+      </table>
+      <div style="margin-top: 20px; text-align: right; padding-right: 30px;">
+        <div>ลงชื่อพยาบาลที่ส่งต่อ ..............................................................</div>
+        <div style="margin-top:5px; margin-right:20px;">( <span id="p_nurse" style="display:inline-block; width:150px; text-align:center;"></span> )</div>
+        <div style="margin-top:5px; margin-right:20px;">ตำแหน่ง <span id="p_pos" style="display:inline-block; width:150px; text-align:center;"></span></div>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // 🔴 วาง Web App URL ที่ได้จากขั้นตอนที่ 1 ลงตรงนี้ 🔴
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyeRKKJQWV0OvEf7p_0Fa4y5y0b7JBPB1cDnRAgG1mFVbQHCBiiAnXiWLTl3muVlpe2/exec";
+    // 🔴 แก้ไขลิงก์ Web App ตรงนี้นะครับ 🔴
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwe28RcydfDVBu914mY2UB5_h5yJYEqEo4KXGQt0s1zuVnf08XNkRozyyDnU3kHMTo/exec";
 
     let allData = [];
 
-    // ฟังก์ชันหลักที่ใช้คุยกับ Google Apps Script แทน google.script.run
     async function serverCall(action, payloadData = {}) {
       try {
         const response = await fetch(WEB_APP_URL, {
           method: 'POST',
           body: JSON.stringify({ action: action, data: payloadData }),
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' } // ใช้ text/plain เลี่ยงปัญหา CORS
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' } 
         });
         return await response.json();
-      } catch (error) {
-        console.error("API Call Error:", error);
-        throw error;
-      }
+      } catch (error) { throw error; }
     }
 
     function switchPage(pageId, navElement) {
@@ -318,9 +375,7 @@
         await serverCall('initApp');
         await loadSettings();
         await loadApp();
-      } catch(e) {
-        alert("การเชื่อมต่อฐานข้อมูลล้มเหลว ตรวจสอบ Web App URL");
-      }
+      } catch(e) { alert("การเชื่อมต่อฐานข้อมูลล้มเหลว ตรวจสอบ Web App URL"); }
       document.getElementById('loading-overlay').style.display = 'none';
 
       const devOther = document.getElementById('c_dev_other');
@@ -348,26 +403,21 @@
         ns.innerHTML = '<option value="">-- เลือก --</option>' + res.nurses.map(n => `<option value="${n}">${n}</option>`).join('');
         ps.innerHTML = '<option value="">-- เลือก --</option>' + res.positions.map(p => `<option value="${p}">${p}</option>`).join('');
         document.getElementById('set_nurses').value = res.nurses.join('\n'); document.getElementById('set_positions').value = res.positions.join('\n');
-      } catch(e) { console.error("Error loading settings"); }
+      } catch(e) {}
     }
 
     function openSettingsModal() { document.getElementById('settingsModal').classList.add('active'); }
     function closeSettingsModal() { document.getElementById('settingsModal').classList.remove('active'); }
-    
     async function saveSettingsData() {
       const n = document.getElementById('set_nurses').value; const p = document.getElementById('set_positions').value;
       document.getElementById('loading-overlay').style.display = 'flex';
-      try {
-        await serverCall('saveSettings', { nursesText: n, positionsText: p });
-        alert('บันทึกสำเร็จ'); closeSettingsModal(); await loadSettings();
-      } catch(e) { alert("บันทึกไม่สำเร็จ"); }
+      try { await serverCall('saveSettings', { nursesText: n, positionsText: p }); alert('บันทึกสำเร็จ'); closeSettingsModal(); await loadSettings(); } catch(e) {}
       document.getElementById('loading-overlay').style.display = 'none';
     }
 
     async function searchAN() {
       const an = document.getElementById('f_an').value; if(!an) return alert("ระบุ AN");
       const btn = document.querySelector('.btn-search'); btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>'; btn.disabled = true;
-
       try {
         const res = await serverCall('fetchPatientData', { an: an });
         btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i>'; btn.disabled = false;
@@ -376,10 +426,7 @@
           document.getElementById('f_age').value = res.age; document.getElementById('f_address').value = res.address;
           document.getElementById('f_dx').value = res.dx;
         } else alert(res.message);
-      } catch(e) {
-        btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i>'; btn.disabled = false;
-        alert("ค้นหาผิดพลาด");
-      }
+      } catch(e) { btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i>'; btn.disabled = false; }
     }
 
     function getVal(id) { return document.getElementById(id) ? document.getElementById(id).value : ''; }
@@ -403,7 +450,10 @@
         meds: getVal('f_meds'), selfcare: getRad('f_selfcare'), motor: getVal('f_motor'),
         dev_foley: getChk('c_dev_foley'), dev_ng: getChk('c_dev_ng'), dev_colo: getChk('c_dev_colo'), dev_tt: getChk('c_dev_tt'), dev_wound: getChk('c_dev_wound'), dev_other: getChk('c_dev_other'), dev_other_txt: getVal('f_dev_other_txt'),
         comp_uti: getChk('c_comp_uti'), comp_bed: getChk('c_comp_bed'), comp_pneu: getChk('c_comp_pneu'), comp_other_txt: getVal('f_comp_other_txt'),
-        mental: getRad('f_mental'), mental_txt: getVal('f_mental_txt'), nurse: getVal('f_nurse_name'), pos: getVal('f_nurse_pos')
+        mental: getRad('f_mental'), mental_txt: getVal('f_mental_txt'), 
+        pr_1: getChk('c_p_disease'), pr_2: getChk('c_p_eat'), pr_3: getChk('c_p_med'), pr_4: getChk('c_p_ex'), pr_5: getChk('c_p_pt'), pr_6: getChk('c_p_obs'), pr_7: getChk('c_p_appt'), pr_8: getChk('c_p_daily'), pr_oth: getVal('f_p_other_txt'),
+        a_1: getChk('c_a_patho'), a_2: getChk('c_a_clean'), a_3: getChk('c_a_turn'), a_4: getChk('c_a_tube'), a_5: getChk('c_a_wound'), a_6: getChk('c_a_pt'), a_7: getChk('c_a_eattxt'), a_8: getChk('c_a_water'), a_9: getChk('c_a_veg'), a_10: getChk('c_a_smoke'), a_11: getChk('c_a_diet'), a_12: getChk('c_a_blend'), a_13: getChk('c_a_mind'), a_14: getChk('c_a_sup'), a_15: getChk('c_a_appt'),
+        nurse: getVal('f_nurse_name'), pos: getVal('f_nurse_pos')
       };
 
       if (isEditMode) {
@@ -412,22 +462,22 @@
           const res = await serverCall('updateMainDataHHC', formData);
           if(res.success) { alert('แก้ไขข้อมูลสำเร็จ!'); cancelEditMode(); loadApp(); } 
           else { alert('Error: ' + res.message); resetBtn(); }
-        } catch(e) { alert("เกิดข้อผิดพลาด"); resetBtn(); }
+        } catch(e) { resetBtn(); }
       } else {
         try {
           const res = await serverCall('saveDataHHC', formData);
           if(res.success) { 
-            alert('บันทึกสำเร็จ!'); document.getElementById('entryForm').reset(); resetBtn(); loadApp(); 
+            await generateFiles(formData, 'both'); 
+            alert('บันทึกและสร้างไฟล์สำเร็จ!'); document.getElementById('entryForm').reset(); resetBtn(); loadApp(); 
           } else { alert('Error: ' + res.message); resetBtn(); }
-        } catch(e) { alert("เกิดข้อผิดพลาด"); resetBtn(); }
+        } catch(e) { resetBtn(); }
       }
-      function resetBtn() { btn.innerHTML = '<i class="fa-solid fa-download"></i> บันทึกข้อมูล'; btn.disabled = false; }
+      function resetBtn() { btn.innerHTML = '<i class="fa-solid fa-download"></i> บันทึกข้อมูลและสร้างไฟล์เอกสารทันที'; btn.disabled = false; }
     }
 
     function editRecord(id) {
       const row = allData.find(r => r[0].toString() === id.toString());
       if(!row || !row[19]) return alert("ไม่พบข้อมูล JSON");
-
       let data; try { data = JSON.parse(row[19]); } catch(e) { return alert("การอ่านข้อมูลเก่าล้มเหลว"); }
       document.getElementById('entryForm').reset(); document.getElementById('entry_edit_id').value = id;
 
@@ -442,6 +492,19 @@
       const rOpt = Array.from(document.getElementById('f_right').options).map(o=>o.value);
       if(rOpt.includes(data.right)) { setV('f_right', data.right); toggleRightOther(); } else { setV('f_right', 'อื่นๆ'); toggleRightOther(); setV('f_right_other', data.right); }
 
+      setV('f_t', data.t); setV('f_pr', data.pr); setV('f_rr', data.rr); setV('f_bp', data.bp); setV('f_bw', data.bw); setV('f_adl', data.adl); setV('f_pps', data.pps); setV('f_meds', data.meds);
+      
+      const selfcares = document.getElementsByName('f_selfcare'); selfcares.forEach(r => r.checked = (r.value === data.selfcare));
+      const mentals = document.getElementsByName('f_mental'); mentals.forEach(r => r.checked = (r.value === data.mental));
+      setV('f_motor', data.motor); setV('f_mental_txt', data.mental_txt);
+
+      setC('c_dev_foley', data.dev_foley); setC('c_dev_ng', data.dev_ng); setC('c_dev_colo', data.dev_colo); setC('c_dev_tt', data.dev_tt); setC('c_dev_wound', data.dev_wound); setC('c_dev_other', data.dev_other); setV('f_dev_other_txt', data.dev_other_txt);
+      if(data.dev_other) document.getElementById('f_dev_other_txt').style.display='block';
+      setC('c_comp_uti', data.comp_uti); setC('c_comp_bed', data.comp_bed); setC('c_comp_pneu', data.comp_pneu); setV('f_comp_other_txt', data.comp_other_txt);
+      
+      setC('c_p_disease', data.pr_1); setC('c_p_eat', data.pr_2); setC('c_p_med', data.pr_3); setC('c_p_ex', data.pr_4); setC('c_p_pt', data.pr_5); setC('c_p_obs', data.pr_6); setC('c_p_appt', data.pr_7); setC('c_p_daily', data.pr_8); setV('f_p_other_txt', data.pr_oth);
+      for(let i=1; i<=15; i++) setC('c_a_'+(i===1?'patho':i===2?'clean':i===3?'turn':i===4?'tube':i===5?'wound':i===6?'pt':i===7?'eattxt':i===8?'water':i===9?'veg':i===10?'smoke':i===11?'diet':i===12?'blend':i===13?'mind':i===14?'sup':'appt'), data['a_'+i]);
+
       setV('f_nurse_name', data.nurse); setV('f_nurse_pos', data.pos);
       document.getElementById('entry-title').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> แก้ไขข้อมูลการส่งต่อ';
       document.getElementById('btn-main-submit').innerHTML = '<i class="fa-solid fa-save"></i> บันทึกการแก้ไข';
@@ -451,15 +514,95 @@
 
     function cancelEditMode() {
       document.getElementById('entryForm').reset(); document.getElementById('entry_edit_id').value = "";
-      document.getElementById('entry-title').innerHTML = '<i class="fa-solid fa-clipboard-user"></i> แบบบันทึกการส่งต่อ';
-      document.getElementById('btn-main-submit').innerHTML = '<i class="fa-solid fa-download"></i> บันทึกข้อมูล';
+      document.getElementById('entry-title').innerHTML = '<i class="fa-solid fa-clipboard-user"></i> แบบบันทึกการส่งต่อ (รพ.คอนสาร)';
+      document.getElementById('btn-main-submit').innerHTML = '<i class="fa-solid fa-download"></i> บันทึกข้อมูลและสร้างไฟล์เอกสารทันที';
       document.getElementById('btn-cancel-edit').style.display = 'none';
       switchPage('page-report', document.querySelector('.nav-item[onclick*="page-report"]'));
     }
 
-    // --- Report / Tracking (ยกมาจากโค้ดเดิมส่วนใหญ่) ---
-    function fDate(dStr) { return dStr ? new Date(dStr).toLocaleDateString('th-TH') : ''; }
+    // --- ระบบจัดทำ PDF / JPEG / ดูข้อมูล (Preview) ---
+    function setTick(id, isTrue) { document.getElementById(id).innerHTML = isTrue ? '&#9745;' : '&#9744;'; }
+    function setTxt(id, txt) { document.getElementById(id).innerText = txt || ''; }
+    function fDate(dStr) { return (dStr && !isNaN(new Date(dStr).valueOf())) ? new Date(dStr).toLocaleDateString('th-TH') : '-'; }
 
+    async function generateFiles(data, type, isPreview = false) {
+      try {
+        setTxt('p_name', data.name); setTxt('p_age', data.age); setTxt('p_hn', data.hn); setTxt('p_ward', data.ward);
+        setTxt('p_address', data.address); setTxt('p_caregiver', data.caregiver); setTxt('p_relation', data.relation); setTxt('p_phone', data.phone);
+        setTxt('p_dx', data.dx); setTick('p_pal_y', data.pal === 'ใช่'); setTick('p_pal_n', data.pal === 'ไม่ใช่');
+        setTxt('p_admit', fDate(data.admit_date)); setTxt('p_disdate', fDate(data.discharge_date));
+        setTxt('p_appt', fDate(data.appt_date)); setTxt('p_place', data.appt_place); setTxt('p_right', data.right); setTxt('p_pcu', data.pcu);
+        setTxt('p_t', data.t); setTxt('p_pr', data.pr); setTxt('p_rr', data.rr); setTxt('p_bp', data.bp); setTxt('p_bw', data.bw); setTxt('p_adl', data.adl); setTxt('p_pps', data.pps);
+        
+        const meds = data.meds || ''; setTxt('p_meds1', meds.substring(0, 100)); setTxt('p_meds2', meds.substring(100));
+        
+        setTick('p_sc_1', data.selfcare==='ได้ดี'); setTick('p_sc_2', data.selfcare==='ได้น้อย'); setTick('p_sc_3', data.selfcare==='ไม่ได้'); setTxt('p_motor', data.motor);
+        setTick('p_d_foley', data.dev_foley); setTick('p_d_ng', data.dev_ng); setTick('p_d_colo', data.dev_colo); setTick('p_d_tt', data.dev_tt); setTick('p_d_wound', data.dev_wound); setTick('p_d_oth', data.dev_other); setTxt('p_d_oth_t', data.dev_other_txt);
+        setTick('p_c_uti', data.comp_uti); setTick('p_c_bed', data.comp_bed); setTick('p_c_pneu', data.comp_pneu); setTxt('p_c_oth', data.comp_other_txt);
+        setTick('p_m_no', data.mental==='ไม่มี'); setTick('p_m_yes', data.mental==='มีปัญหา'); setTxt('p_m_txt', data.mental_txt);
+        setTick('p_pr_1', data.pr_1); setTick('p_pr_2', data.pr_2); setTick('p_pr_3', data.pr_3); setTick('p_pr_4', data.pr_4); setTick('p_pr_5', data.pr_5); setTick('p_pr_6', data.pr_6); setTick('p_pr_7', data.pr_7); setTick('p_pr_8', data.pr_8); setTxt('p_pr_oth', data.pr_oth);
+        setTick('p_a_1', data.a_1); setTick('p_a_2', data.a_2); setTick('p_a_3', data.a_3); setTick('p_a_4', data.a_4); setTick('p_a_5', data.a_5); setTick('p_a_6', data.a_6); setTick('p_a_7', data.a_7); setTick('p_a_8', data.a_8); setTick('p_a_9', data.a_9); setTick('p_a_10', data.a_10); setTick('p_a_11', data.a_11); setTick('p_a_12', data.a_12); setTick('p_a_13', data.a_13); setTick('p_a_14', data.a_14); setTick('p_a_15', data.a_15);
+        setTxt('p_nurse', data.nurse); setTxt('p_pos', data.pos);
+
+        const wrapper = document.getElementById('pdf-wrapper');
+        wrapper.style.display = 'flex';
+        
+        if (isPreview) {
+           document.getElementById('pdf-close-btn').style.display = 'inline-block';
+           return; 
+        }
+
+        document.getElementById('pdf-close-btn').style.display = 'none';
+        const overlay = document.getElementById('loading-overlay');
+        overlay.style.display = 'flex';
+
+        await new Promise(r => setTimeout(r, 800));
+
+        const element = document.getElementById('pdf-template');
+        const safeName = data.name ? data.name.replace(/\s+/g, '_') : 'ไม่ระบุชื่อ';
+        const thDateStr = new Date().toLocaleDateString('th-TH').replace(/\//g, '-');
+        const fileName = `ดูแลต่อเนื่อง_${safeName}_${thDateStr}`;
+
+        if (type === 'jpeg' || type === 'both') {
+          const canvas = await html2canvas(element, { scale: 2, useCORS: true, logging: false });
+          const imgData = canvas.toDataURL('image/jpeg', 1.0);
+          const link = document.createElement('a'); link.download = fileName + '.jpg'; link.href = imgData; link.click();
+        }
+
+        if (type === 'pdf' || type === 'both') {
+          const opt = { 
+            margin: 0.3, filename: fileName + '.pdf', 
+            image: { type: 'jpeg', quality: 1 }, 
+            html2canvas: { scale: 2, useCORS: true, logging: false }, 
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
+            pagebreak: { mode: ['css', 'legacy'] }
+          };
+          await html2pdf().set(opt).from(element).save();
+        }
+
+        wrapper.style.display = 'none';
+        overlay.style.display = 'none';
+      } catch(e) { 
+        document.getElementById('loading-overlay').style.display='none'; 
+        document.getElementById('pdf-wrapper').style.display='none'; 
+      }
+    }
+
+    function viewRecord(id) {
+      const row = allData.find(r => r[0].toString() === id.toString());
+      if(!row || !row[19]) return alert("ไม่พบข้อมูล JSON");
+      let data; try { data = JSON.parse(row[19]); } catch(e) { return alert("การอ่านข้อมูลเก่าล้มเหลว"); }
+      generateFiles(data, null, true);
+    }
+
+    function downloadDoc(id, type) { 
+      try { 
+        const row = allData.find(r => r[0].toString() === id.toString());
+        if(row && row[19]) { generateFiles(JSON.parse(row[19]), type); } else { alert("ไม่พบข้อมูลแบบฟอร์ม"); }
+      } catch(e) { alert("ข้อมูลไม่สมบูรณ์"); } 
+    }
+
+    // --- Report ---
     function getFilteredReport() {
       const sVal = document.getElementById('r-start').value; const eVal = document.getElementById('r-end').value;
       const p = document.getElementById('r-pcu').value; const n = document.getElementById('r-name').value.toLowerCase();
@@ -504,6 +647,12 @@
             return `<div class="track-card status-waiting">
               <div style="font-size:12px; color:gray;">${row[10]||'-'} | ส่งต่อ: ${fDate(row[2])}</div>
               <h4 style="margin:5px 0;">${row[5]||''} (HN: ${row[4]||''})</h4>
+              <div style="font-size:13px; color:#555; margin-bottom:10px;"><i class="fa-solid fa-phone"></i> ${rawPhone || 'ไม่มีเบอร์โทร'}</div>
+              <div class="card-actions">
+                ${row[19] ? `<button class="btn btn-outline" style="color:#f4b400; border-color:#f4b400;" onclick="viewRecord('${row[0]}')" title="ดูข้อมูล"><i class="fa-solid fa-eye"></i> ดูข้อมูล</button>` : ''}
+                ${row[19] ? `<button class="btn btn-outline" style="color:#1a73e8; border-color:#1a73e8;" onclick="downloadDoc('${row[0]}', 'pdf')" title="โหลด PDF"><i class="fa-solid fa-file-pdf"></i> PDF</button>` : ''}
+                ${row[19] ? `<button class="btn btn-outline" style="color:#0f9d58; border-color:#0f9d58;" onclick="downloadDoc('${row[0]}', 'jpeg')" title="โหลดรูป"><i class="fa-solid fa-image"></i> รูป</button>` : ''}
+              </div>
               <div class="card-actions" style="margin-top:5px;">
                 <button class="btn btn-edit" onclick="editRecord('${row[0]}')"><i class="fa-solid fa-pen"></i> แก้ไข</button>
                 <button class="btn btn-danger" onclick="deleteRow('${row[0]}')"><i class="fa-solid fa-trash"></i> ลบ</button>
@@ -515,23 +664,63 @@
           tableBody.innerHTML = filtered.map(row => {
             return `<tr><td>${fDate(row[2])}</td><td>${row[4]||''}</td><td>${row[5]||''}</td><td>${row[10]||''}</td>
               <td style="display:flex; gap:5px; flex-wrap:wrap;">
+                ${row[19] ? `<button class="btn btn-outline" style="color:#f4b400; border-color:#f4b400;" onclick="viewRecord('${row[0]}')" title="ดูข้อมูล"><i class="fa-solid fa-eye"></i></button>` : ''}
+                ${row[19] ? `<button class="btn btn-outline" style="color:#1a73e8; border-color:#1a73e8;" onclick="downloadDoc('${row[0]}', 'pdf')" title="โหลด PDF"><i class="fa-solid fa-file-pdf"></i></button>` : ''}
+                ${row[19] ? `<button class="btn btn-outline" style="color:#0f9d58; border-color:#0f9d58;" onclick="downloadDoc('${row[0]}', 'jpeg')" title="โหลดรูปภาพ"><i class="fa-solid fa-image"></i></button>` : ''}
                 <button class="btn btn-edit" onclick="editRecord('${row[0]}')"><i class="fa-solid fa-pen"></i></button>
                 <button class="btn btn-danger" onclick="deleteRow('${row[0]}')"><i class="fa-solid fa-trash"></i></button>
               </td></tr>`;
           }).join('');
         }
-      } catch(e) { console.error("Report Error:", e); }
+      } catch(e) {}
     }
 
     async function deleteRow(id) { 
       if(confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')) {
-        try {
-          await serverCall('deleteRowData', { id: id });
-          loadApp();
-        } catch(e) { alert("ไม่สามารถลบข้อมูลได้"); }
+        try { await serverCall('deleteRowData', { id: id }); loadApp(); } catch(e) { alert("ลบไม่ได้"); }
       }
     }
 
+    // --- Export List ---
+    async function exportListPDF(page) {
+      const data = page === 'report' ? getFilteredReport() : getFilteredTracking();
+      if(data.length === 0) return alert('ไม่มีข้อมูลที่ตรงกับเงื่อนไข');
+      const overlay = document.getElementById('loading-overlay');
+      overlay.style.display = 'flex';
+      
+      const wrapper = document.createElement('div');
+      wrapper.style.position = 'absolute'; wrapper.style.top = '0'; wrapper.style.left = '0'; wrapper.style.width = '1000px'; wrapper.style.background = 'white'; wrapper.style.padding = '20px'; wrapper.style.zIndex = '-1';
+      
+      let html = `<div style="font-family: 'Sarabun', sans-serif; color: #000;">
+        <h2 style="text-align:center;">รายงาน${page === 'report' ? 'ส่งต่อผู้ป่วย' : 'ติดตามเยี่ยมบ้าน'}</h2>
+        <table style="width:100%; border-collapse:collapse; font-size:12px; margin-top:20px;">
+          <thead><tr><th style="border:1px solid #000; padding:8px;">วันที่ส่งต่อ</th><th style="border:1px solid #000; padding:8px;">HN</th><th style="border:1px solid #000; padding:8px;">ชื่อ-สกุล</th><th style="border:1px solid #000; padding:8px;">รพ.สต. ปลายทาง</th><th style="border:1px solid #000; padding:8px;">สถานะการติดตาม</th></tr></thead>
+          <tbody>`;
+      data.forEach(r => { html += `<tr><td style="border:1px solid #000; padding:8px;">${fDate(r[2])}</td><td style="border:1px solid #000; padding:8px;">${r[4]||''}</td><td style="border:1px solid #000; padding:8px;">${r[5]||''}</td><td style="border:1px solid #000; padding:8px;">${r[10]||''}</td><td style="border:1px solid #000; padding:8px;">${r[14] || 'รอติดตาม'}</td></tr>`; });
+      html += `</tbody></table></div>`;
+      
+      wrapper.innerHTML = html; document.body.appendChild(wrapper);
+      await new Promise(r => setTimeout(r, 500)); 
+
+      try {
+        const opt = { margin: 0.5, filename: `ตารางรายงาน_${page}.pdf`, image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' } };
+        await html2pdf().set(opt).from(wrapper).save(); 
+      } catch(e) { alert("ออกเอกสารล้มเหลว"); }
+
+      document.body.removeChild(wrapper);
+      overlay.style.display = 'none';
+    }
+
+    function exportListCSV(page) {
+      const data = page === 'report' ? getFilteredReport() : getFilteredTracking();
+      if(data.length === 0) return alert('ไม่มีข้อมูลที่ตรงกับเงื่อนไขการค้นหา');
+      let csv = '\uFEFFวันที่ส่งต่อ,HN,ชื่อ-สกุล,รพ.สต. ปลายทาง,สถานะการติดตาม\n';
+      data.forEach(r => { csv += `"${fDate(r[2])}","${r[4]||''}","${r[5]||''}","${r[10]||''}","${r[14] || 'รอติดตาม'}"\n`; });
+      const link = document.createElement("a"); link.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
+      link.download = `ตารางรายงาน_${page}.csv`; link.click();
+    }
+
+    // --- Tracking ---
     function getFilteredTracking() {
       const sVal = document.getElementById('t-start').value; const eVal = document.getElementById('t-end').value;
       const p = document.getElementById('t-pcu').value; const st = document.getElementById('t-status').value; 
@@ -568,12 +757,27 @@
               <div style="font-size:12px; color:gray;">${row[10]||'-'} | ส่งต่อ: ${fDate(row[2])}</div>
               <h4 style="margin:5px 0;">${row[5]||''} (HN: ${row[4]||''})</h4>
               <div style="margin-top:10px;">สถานะ: <b>${row[14]||'รอติดตาม'}</b></div>
+              
+              <div style="margin-top:10px; display:flex; gap:5px; flex-wrap:wrap;">
+                ${rawPhone ? `<a href="tel:${rawPhone}" class="btn btn-outline" style="color:#0f9d58; flex:1; justify-content:center; border-color:#0f9d58;"><i class="fa-solid fa-phone"></i> โทรออก</a>` : '<div style="color:gray; font-size:12px; flex:1; text-align:center; padding:8px;">ไม่มีเบอร์โทร</div>'}
+                ${rawPhone ? `<a href="https://line.me/R/ti/p/~${rawPhone}" target="_blank" class="btn btn-outline" style="color:#00b900; flex:1; justify-content:center; border-color:#00b900;"><i class="fa-brands fa-line"></i> Line</a>` : ''}
+              </div>
+
               <div style="margin-top:10px; color:#d32f2f; font-size:12px; font-weight:bold;"><i class="fa-solid fa-clock-rotate-left"></i> ติดตามล่าสุด: ${row[16] ? fDate(row[16]) : '-'}</div>
               <button class="btn btn-success" style="margin-top:10px; width:100%" onclick="openTrackModal('${row[0]}')">บันทึกติดตาม</button>
             </div>`;
           }).join('');
+        } else {
+          container.className = 'timeline';
+          container.innerHTML = filtered.map(row => {
+            return `<div class="timeline-item">
+              <div><b>${row[5]||''}</b> (HN: ${row[4]||''}) | ${row[10]||''} | <span style="color:red;">${row[14]||''}</span></div>
+              <div style="font-size:12px; color:gray; margin-top:5px;">ส่งต่อ: ${fDate(row[2])} | ติดตามล่าสุด: ${row[16] ? fDate(row[16]) : '-'}</div>
+              <button class="btn btn-success" style="margin-top:10px;" onclick="openTrackModal('${row[0]}')">ติดตาม</button>
+            </div>`;
+          }).join('');
         }
-      } catch(e) { console.error("Tracking Error:", e); }
+      } catch(e) {}
     }
 
     function openTrackModal(id) { document.getElementById('track-id').value = id; document.getElementById('trackModal').classList.add('active'); }
@@ -593,15 +797,74 @@
       document.getElementById('loading-overlay').style.display = 'none';
     }
 
+    // --- Dashboard Chart ---
     function updateChart() {
-      // โค้ดสร้างกราฟเหมือนเดิม (ยกมาใส่ได้เลย)
+      try {
+        const type = document.getElementById('chart-type').value; 
+        const dim = document.getElementById('chart-dim').value;
+        const sVal = document.getElementById('dash-start').value; const eVal = document.getElementById('dash-end').value;
+
+        const filtered = allData.filter(row => {
+          if(!row) return false;
+          let dateMatch = true;
+          if (sVal || eVal) {
+            const rd = row[2] ? new Date(row[2]) : null;
+            if (!rd || isNaN(rd.getTime())) { dateMatch = false; } 
+            else {
+               rd.setHours(0,0,0,0);
+               if (sVal) { const sDate = new Date(sVal); sDate.setHours(0,0,0,0); if (rd < sDate) dateMatch = false; }
+               if (eVal) { const eDate = new Date(eVal); eDate.setHours(23,59,59,999); if (rd > eDate) dateMatch = false; }
+            }
+          }
+          return dateMatch;
+        });
+
+        const counts = {}; 
+        filtered.forEach(row => {
+          let json = {};
+          try { if(row[19]) json = JSON.parse(row[19]); } catch(e) {}
+
+          if(dim === 'pcu') { let k = row[10] || "ไม่ระบุ"; counts[k] = (counts[k] || 0) + 1; }
+          else if (dim === 'date') { let k = fDate(row[2]) || "ไม่ระบุ"; counts[k] = (counts[k] || 0) + 1; }
+          else if (dim === 'selfcare') { let k = json.selfcare || 'ไม่ระบุ'; counts[k] = (counts[k] || 0) + 1; }
+          else if (dim === 'device') {
+            if(json.dev_foley) counts["Foley's cath"] = (counts["Foley's cath"]||0)+1;
+            if(json.dev_ng) counts["NG Tube"] = (counts["NG Tube"]||0)+1;
+            if(json.dev_colo) counts["Colostomy"] = (counts["Colostomy"]||0)+1;
+            if(json.dev_tt) counts["TT tube"] = (counts["TT tube"]||0)+1;
+            if(json.dev_wound) counts["มีแผล"] = (counts["มีแผล"]||0)+1;
+          }
+          else if (dim === 'comp') {
+            if(json.comp_uti) counts["UTI"] = (counts["UTI"]||0)+1;
+            if(json.comp_bed) counts["Bed sore"] = (counts["Bed sore"]||0)+1;
+            if(json.comp_pneu) counts["Pneumonia"] = (counts["Pneumonia"]||0)+1;
+          }
+          else if (dim === 'pal') { let k = json.pal || 'ไม่ระบุ'; counts[k] = (counts[k] || 0) + 1; }
+          else if (dim === 'dx') { let k = row[7] || 'ไม่ระบุ'; counts[k] = (counts[k] || 0) + 1; }
+        });
+        
+        const cW = document.getElementById('canvasWrapper'); const tC = document.getElementById('tableContainer');
+        
+        if (window.myChartInstance) { window.myChartInstance.destroy(); }
+        
+        if(type === 'table') {
+          cW.style.display='none'; tC.style.display='block';
+          let ht = '<table class="modern-table"><thead><tr><th>ข้อมูล</th><th>จำนวน (ราย)</th></tr></thead><tbody>'; let t=0; for(let p in counts){ ht+=`<tr><td>${p}</td><td>${counts[p]}</td></tr>`; t+=counts[p]; }
+          tC.innerHTML = ht + `<tr style="font-weight:bold; background:#e8eaed;"><td>รวมทั้งหมด</td><td>${t}</td></tr></tbody></table>`;
+        } else {
+          cW.style.display='block'; tC.style.display='none';
+          cW.innerHTML = '<canvas id="myChart"></canvas>';
+          const ctx = document.getElementById('myChart').getContext('2d');
+          window.myChartInstance = new Chart(ctx, { type: type, data: { labels: Object.keys(counts), datasets: [{ label: 'จำนวน (ราย)', data: Object.values(counts), backgroundColor: ['#1a73e8','#4285f4','#64b5f6','#81c9fa','#aecbfa','#ff9900','#109618','#990099','#0099c6','#dd4477'] }] }, options: { responsive: true, maintainAspectRatio: false }});
+        }
+      } catch(e) {}
     }
 
     async function openDatabase() { 
       try {
         const res = await serverCall('getDatabaseUrl');
         if(res.url) window.open(res.url, '_blank');
-      } catch(e) { alert("ไม่สามารถดึง URL ฐานข้อมูลได้"); }
+      } catch(e) {}
     }
   </script>
 </body>
